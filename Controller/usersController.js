@@ -34,6 +34,33 @@ const deletById = async(req, res) => {
     }
     
 }
+const count = async (req, res) => {
+    
+
+    try {
+        let all = await userModle.countDocuments();
+
+        res.send({data:all})
+
+    } catch (error) {
+
+        res.json({ message: error.message })
+
+    }
+}
+
+const update = async (req, res) => {
+    let { id } = req.params;
+    let { title } = req.body;
+
+    try {
+        let findTodo = await userModle.findByIdAndUpdate(id, { title }, { new: true });
+        res.status(200).json({ message: 'updated', data: findTodo })
+    } catch (error) {
+        res.json({ message: error.message })
+    }
+}
 
 
-module.exports = { create, GettAll, deletById }
+
+module.exports = { create, GettAll, deletById,count,update }
