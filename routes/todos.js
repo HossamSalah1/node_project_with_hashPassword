@@ -1,21 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-const{ update, create, deletById, getById, getAllTodos, count}=require('../Controller/todosController');
+const { update, create, deletById, getById, getAllTodos, count } = require('../Controller/todosController');
+const { auth } = require('../middleware/auth');
 
 
 
-router.patch('/:id',update);
+router.patch('/:id', update);
 
-router.post('/',create);
+router.post('/',auth, create);
 
-router.get('/',getAllTodos);
+router.get('/',auth, getAllTodos);
 
-router.get('/count',count);
+router.get('/count', count);
 
- 
-router.get('/:id',getById);  
 
-router.delete('/:id',deletById);
+router.get('/:id', getById);
+
+router.delete('/:id', deletById);
 
 module.exports = router;

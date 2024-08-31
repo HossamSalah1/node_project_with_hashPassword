@@ -14,7 +14,9 @@ const update = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    let newTodo = req.body;
+    let newTodo = req.body
+    newTodo.userId=req.id
+
     try {
         let insert = await todoModel.create(newTodo);
         res.status(201).json({ message: 'created', data: insert })
@@ -41,12 +43,12 @@ const getAllTodos = async (req, res) => {
 }
 
 const count = async (req, res) => {
-    
+
 
     try {
         let all = await todoModel.countDocuments();
 
-        res.send({data:all})
+        res.send({ data: all })
 
     } catch (error) {
 
@@ -71,18 +73,18 @@ const getById = async (req, res) => {
 
 }
 
-const deletById = async(req, res) => {
-    let {id} = req.params
+const deletById = async (req, res) => {
+    let { id } = req.params
     try {
-        let deleteTodo=await todoModel.findByIdAndDelete(id)
-        res.json({message:"deleted",data:deleteTodo})
+        let deleteTodo = await todoModel.findByIdAndDelete(id)
+        res.json({ message: "deleted", data: deleteTodo })
     } catch (error) {
-        res.json({message:error.message})
-        
+        res.json({ message: error.message })
+
     }
-    
+
 }
 
 
 
-module.exports = { update, create, deletById, getById, getAllTodos,count }
+module.exports = { update, create, deletById, getById, getAllTodos, count }
